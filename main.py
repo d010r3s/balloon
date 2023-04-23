@@ -35,7 +35,7 @@ camera = Camera(fig)
 for n in range(250):
   X = np.array([-0.3, 0.66, 0.6, 0.7, -0.7])
   temp = np.array([0] * 5)
-  delta = 0.0001
+  delta = 0.0000001
 
   while True:
     temp = F(X, Ay)
@@ -62,12 +62,13 @@ for n in range(250):
   a1 = patches.Arc(xy=(X[1],X[2]), width=2*X[2], height=2*X[2], angle=0.0, theta1 = -90, theta2 = math.degrees(X[4])-90)
   ax.add_patch(a1)
   ax.hlines(Ay, Ax, Bx)
+  ax.hlines(0, X[0], X[1])
   plt.xlim(-0.5, 0.5)
   plt.ylim(0, 1)
   camera.snap()
 
 animation = camera.animate(interval=600, repeat=True, repeat_delay=100)
 
-animation.save('animation.gif', writer='pillow')
-#plt.show()
+#animation.save('animation.gif', writer='pillow')
+plt.show()
 
