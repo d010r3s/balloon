@@ -14,11 +14,11 @@ def F(x, Ay):
   C = 3 * math.pi / 8
   t = 0.005
   x_new = [0]*5
-  x_new[0] = (x[0] + x[2]*(math.cos((3*math.pi/2 - x[3]))) - Ax)*t
-  x_new[1] = (x[1] + x[2] * (math.cos(3 * math.pi / 2 + x[4])) - Bx)*t
-  x_new[2] = (x[2] + x[2] * (math.sin((3 * math.pi / 2 - x[3]))) - Ay) * t
-  x_new[3] = ((x[3]+x[4])*x[2]+(x[1]-x[0]) - C)*t
-  x_new[4] = (x[2] + x[2]*math.sin(3 * math.pi / 2 + x[4]) - Ay)*t
+  x_new[0] = (x[0] + x[2]*(math.cos((3*math.pi/2 - x[3]))) - Ax)
+  x_new[1] = (x[1] + x[2] * (math.cos(3 * math.pi / 2 + x[4])) - Bx)
+  x_new[2] = (x[2] + x[2] * (math.sin((3 * math.pi / 2 - x[3]))) - Ay)
+  x_new[3] = ((x[3]+x[4])*x[2]+(x[1]-x[0]) - C)
+  x_new[4] = (x[2] + x[2]*math.sin(3 * math.pi / 2 + x[4]) - Ay)
   return x_new
 
 
@@ -36,14 +36,14 @@ for n in range(250):
   X = np.array([-0.3, 0.66, 0.6, 0.7, -0.7])
   temp = np.array([0] * 5)
   delta = 0.0000001
-
+  tau = 0.005
   while True:
     temp = F(X, Ay)
     f = 1
     for j in range(5):
       if abs(temp[j]) > delta:
         f = 0
-    X = X - temp
+    X = X - np.array(temp)*tau
     if f == 1:
       break
 
@@ -69,6 +69,5 @@ for n in range(250):
 
 animation = camera.animate(interval=600, repeat=True, repeat_delay=100)
 
-#animation.save('animation.gif', writer='pillow')
+animation.save('animation.gif', writer='pillow')
 plt.show()
-
